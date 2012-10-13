@@ -33,7 +33,8 @@ public class NeedItem {
 	private String phone;
 	@Formats.DateTime(pattern="MM/dd/yy")
 	private Date endDate;
-	private String location;
+	private Double locationLat;
+	private Double locationLng;
 	private boolean showDetails = false;
 
 	public NeedItem() {
@@ -136,12 +137,20 @@ public class NeedItem {
 		this.endDate = endDate;
 	}
 
-	public String getLocation() {
-		return location;
+	public Double getLocationLat() {
+		return locationLat;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocationLat(Double locationLat) {
+		this.locationLat = locationLat;
+	}
+	
+	public Double getLocationLng() {
+		return locationLng;
+	}
+
+	public void setLocationLng(Double locationLng) {
+		this.locationLng = locationLng;
 	}
 
 	public boolean isShowDetails() {

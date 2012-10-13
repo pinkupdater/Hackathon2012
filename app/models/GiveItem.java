@@ -12,8 +12,10 @@ import javax.persistence.Id;
 
 import org.joda.time.DateMidnight;
 
-import play.data.validation.Constraints.Email;
+
+import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
+
 import play.db.jpa.JPA;
 
 @Entity
@@ -30,6 +32,7 @@ public class GiveItem {
 	@Required(message="Email is required!")
 	private String email;
 	private String phone;
+	@Formats.DateTime(pattern="MM/dd/yy")
 	private Date endDate;
 	private String location;
 	private boolean showDetails = false;

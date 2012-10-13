@@ -18,14 +18,21 @@
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
     	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    	<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+    	<script src="@routes.Assets.at("javascripts/location.js")" type="text/javascript"></script>
+
 <script>
 	$(function() {
 		$( "#datepicker" ).datepicker();
 	});
+	
+	
+	 
+	      
 </script>
     </head>
     <body>
-       @helper.form(action = routes.NeedForm.submit) {
+       @helper.form(action = routes.NeedForm.submit, '_id -> "myForm") {
         
         <fieldset>
             <legend>Add need request</legend>
@@ -44,12 +51,11 @@
                 '_error -> needForm.globalError
             )
             
-            @inputText(
-                needForm("location"), 
-                '_label -> "Location", 
-                '_error -> needForm.globalError
-            )
-			
+            <label for="searchTextField">Location</label>
+            <input id="searchTextField" type="text" form="myForm"></input>
+            
+			 <div id="map_canvas"></div>    
+ 
 			@inputText(
                 needForm("endDate"),
                 '_label -> "Date",
