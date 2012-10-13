@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import org.joda.time.DateMidnight;
 
 import play.data.validation.Constraints;
+import play.data.format.*;
 import play.db.jpa.JPA;
 
 @Entity
@@ -30,6 +31,7 @@ public class NeedItem {
 	@Constraints.Email
 	private String email;
 	private String phone;
+	@Formats.DateTime(pattern="MM/dd/yy")
 	private Date endDate;
 	private String location;
 	private boolean showDetails = false;
