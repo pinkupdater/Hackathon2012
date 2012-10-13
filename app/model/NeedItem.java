@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,16 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import play.data.validation.Constraints;
+import play.db.jpa.JPA;
+
 @Entity
 public class NeedItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Constraints.Required
 	private String name;
 	@Enumerated(value = EnumType.STRING)
-	private ItemType type;
+	private ItemType type = ItemType.FREE;
 	private String description;
+	@Constraints.Required
+	@Constraints.Email
 	private String email;
 	private String phone;
 	private Date endDate;
@@ -26,7 +33,45 @@ public class NeedItem {
 	private boolean showDetails = false;
 
 	public NeedItem() {
+	}
 
+	public void save() {
+		JPA.em().persist(this);
+	}
+
+	public void update() {
+		JPA.em().merge(this);
+	}
+
+	public void delete() {
+		JPA.em().remove(this);
+	}
+
+	public static NeedItem findById(Long id) {
+		return JPA.em().find(NeedItem.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Page<NeedItem> getPage(int page, int pageSize, String sortBy,
+			String order, String filter) {
+		if (page < 1) {
+			page = 1;
+		}
+		Long total = (Long) JPA
+				.em()
+				.createQuery(
+						"select count(c) from NeedItem c where lower(c.name) like ?")
+				.setParameter(1, "%" + filter.toLowerCase() + "%")
+				.getSingleResult();
+		List<NeedItem> data = JPA
+				.em()
+				.createQuery(
+						"from NeedItem c where lower(c.name) like ? order by c."
+								+ sortBy + " " + order)
+				.setParameter(1, "%" + filter.toLowerCase() + "%")
+				.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize)
+				.getResultList();
+		return new Page<NeedItem>(data, total, page, pageSize);
 	}
 
 	public Long getId() {
@@ -99,5 +144,10 @@ public class NeedItem {
 
 	public void setShowDetails(boolean showDetails) {
 		this.showDetails = showDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "NeedItem [id=" + id + ", name=" + name + "]";
 	}
 }
