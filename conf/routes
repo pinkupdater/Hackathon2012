@@ -4,6 +4,9 @@
 
 # Home page
 GET     /                           controllers.Application.index()
+GET     /needList                   controllers.Application.needList(p:Int ?= 0, s ?= "id", o ?= "desc", f ?= "")
+GET     /giveList                   controllers.Application.giveList(p:Int ?= 0, s ?= "id", o ?= "desc", f ?= "")
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
