@@ -1,16 +1,22 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.joda.time.DateMidnight;
+
+import com.beoui.geocell.GeocellManager;
+import com.beoui.geocell.model.Point;
 
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
@@ -31,8 +37,11 @@ public class GiveItem {
 	private String email;
 	private String phone;
 	private Date endDate;
-	private String location;
+	private Double latitude;
+	private Double longitude;
 	private boolean showDetails = false;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<GiveGeoCell> geoCells;
 
 	public GiveItem() {
 	}
@@ -75,6 +84,59 @@ public class GiveItem {
 				.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize)
 				.getResultList();
 		return new Page<GiveItem>(data, total, page, pageSize);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<GiveItem> getBestMatching(int pageSize,
+			List<String> cells, String filter) {
+		if (filter == null) {
+			filter = "";
+		}
+		List<String> ids = JPA
+				.em()
+				.createQuery(
+						"select distinct n.giveItem.id from GiveGeoCell n where n.value in ( :cells ) order by n.giveItem.id desc")
+				.setParameter("cells", cells).getResultList();
+		List<GiveItem> data = null;
+
+		if (ids != null && !ids.isEmpty()) {
+			data = JPA
+					.em()
+					.createQuery(
+							"from GiveItem n where lower(n.name) like :name and n.endDate >= :enddate and n.id in ( :ids ) order by n.id desc")
+					.setParameter("name", "%" + filter.toLowerCase() + "%")
+					.setParameter("enddate", DateMidnight.now().toDate())
+					.setParameter("ids", ids).setMaxResults(pageSize)
+					.getResultList();
+			if (data == null) {
+				data = new ArrayList<GiveItem>();
+			}
+			if (data.size() < pageSize) {
+				List<GiveItem> data2 = JPA
+						.em()
+						.createQuery(
+								"from GiveItem n where lower(n.name) like :name and n.endDate >= :enddate and n.id not in (:ids) order by n.id desc")
+						.setParameter("name", "%" + filter.toLowerCase() + "%")
+						.setParameter("enddate", DateMidnight.now().toDate())
+						.setParameter("ids", ids).setFirstResult(0)
+						.setMaxResults(pageSize - ids.size()).getResultList();
+
+				if (data2 != null) {
+					data.addAll(data2);
+				}
+			}
+
+		} else {
+			data = JPA
+					.em()
+					.createQuery(
+							"from GiveItem n where lower(n.name) like :name and n.endDate >= :enddate order by n.id desc")
+					.setParameter("name", "%" + filter.toLowerCase() + "%")
+					.setParameter("enddate", DateMidnight.now().toDate())
+					.setFirstResult(0).setMaxResults(pageSize - ids.size())
+					.getResultList();
+		}
+		return data;
 	}
 
 	public Long getId() {
@@ -133,12 +195,28 @@ public class GiveItem {
 		this.endDate = endDate;
 	}
 
-	public String getLocation() {
-		return location;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setPosition(Double latitude, Double longitude) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+		Point p = new Point(latitude, longitude);
+		List<String> cells = GeocellManager.generateGeoCell(p);
+		setGeoCellsStrings(cells);
 	}
 
 	public boolean isShowDetails() {
@@ -147,5 +225,20 @@ public class GiveItem {
 
 	public void setShowDetails(boolean showDetails) {
 		this.showDetails = showDetails;
+	}
+
+	public List<GiveGeoCell> getGeoCells() {
+		return geoCells;
+	}
+
+	public void setGeoCells(List<GiveGeoCell> geoCells) {
+		this.geoCells = geoCells;
+	}
+
+	public void setGeoCellsStrings(List<String> geoCellsStrings) {
+		this.geoCells = new ArrayList<GiveGeoCell>();
+		for (String geoString : geoCellsStrings) {
+			geoCells.add(new GiveGeoCell(geoString, this));
+		}
 	}
 }

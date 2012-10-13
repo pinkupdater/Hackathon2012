@@ -26,11 +26,6 @@
 @**********************************
 * Helper generating table headers *
 ***********************************@
-@header(key:String, title:String) = {
-    <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
-        <a href="@link(0, key)">@title</a>
-    </th>
-}
 
 @main("Give list") {
 
