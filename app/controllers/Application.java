@@ -1,7 +1,9 @@
 package controllers;
 
 import java.util.Date;
+import java.util.List;
 
+import models.GeoCellUtil;
 import models.GiveItem;
 import models.ItemType;
 import models.NeedItem;
@@ -9,7 +11,13 @@ import models.Page;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import views.html.giveList;
+import views.html.index;
+import views.html.needList;
+
+import com.beoui.geocell.GeocellManager;
+import com.beoui.geocell.model.BoundingBox;
+import com.beoui.geocell.model.Point;
 
 public class Application extends Controller {
 
@@ -22,14 +30,21 @@ public class Application extends Controller {
 			needItem.setName("I need a tv.");
 			needItem.setEmail("aaa@bbb.com");
 			needItem.setEndDate(new Date());
+			needItem.setPosition(10d, 20d);
 			needItem.save();
 
 			needItem = new NeedItem();
 			needItem.setName("I need a laptop.");
 			needItem.setEmail("aaa@bbb.com");
 			needItem.setEndDate(new Date());
+			needItem.setPosition(46.778, 23.699);
 			needItem.save();
 		}
+
+		List<String> cells = GeoCellUtil.getCells(47.666, 23.583, 50);
+		System.out.println(cells);
+
+		NeedItem.getBestMatching(100, cells, null);
 
 		for (int i = 0; i < 10; i++) {
 			GiveItem giveItem = new GiveItem();
@@ -57,11 +72,12 @@ public class Application extends Controller {
 			initialize();
 		}
 
-		Page<NeedItem> page = NeedItem.getPage(1, 3, "id", "asc", "tv");
-		Page<NeedItem> page2 = NeedItem.getPage(1, 5, "id", "desc", "laptop");
 
-		return ok(index.render("first 3 tv needs: " + page.getList()
-				+ "              last 5 laptop needs: " + page2.getList()));
+		Page<NeedItem> page1 = NeedItem
+				.getPage(0, 4, "id", "desc", "");
+		Page<GiveItem> page2 = GiveItem
+				.getPage(0, 4, "id", "desc", "");
+		return ok(index.render(page1, "id", "desc", "", page2));
 	}
 
 	@Transactional
@@ -87,4 +103,5 @@ public class Application extends Controller {
 				.getPage(page, 10, sortBy, order, filter);
 		return ok(giveList.render(page1, sortBy, order, filter));
 	}
+	
 }
