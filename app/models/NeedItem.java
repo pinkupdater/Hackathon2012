@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import org.joda.time.DateMidnight;
 
 import play.data.validation.Constraints;
+import play.data.validation.Constraints.Required;
 import play.data.format.*;
 import play.db.jpa.JPA;
 
@@ -22,13 +23,12 @@ public class NeedItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Constraints.Required
+	@Required(message="Title is required!")
 	private String name;
 	@Enumerated(value = EnumType.STRING)
 	private ItemType type = ItemType.FREE;
 	private String description;
-	@Constraints.Required
-	@Constraints.Email
+	@Required(message="Email is required!")
 	private String email;
 	private String phone;
 	@Formats.DateTime(pattern="MM/dd/yy")
