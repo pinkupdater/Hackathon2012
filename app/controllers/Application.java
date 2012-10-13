@@ -51,6 +51,7 @@ public class Application extends Controller {
 		initialized = true;
 	}
 
+	@Transactional
 	public static Result index() {
 		if (!initialized) {
 			initialize();
