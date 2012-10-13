@@ -51,6 +51,10 @@ public class Application extends Controller {
 		initialized = true;
 	}
 
+<<<<<<< HEAD
+=======
+	@Transactional
+>>>>>>> branch 'master' of https://github.com/pinkupdater/Hackathon2012.git
 	public static Result index() {
 		if (!initialized) {
 			initialize();
