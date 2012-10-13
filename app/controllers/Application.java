@@ -62,6 +62,7 @@ public class Application extends Controller {
 
 		return ok(index.render("first 3 tv needs: " + page.getList()
 				+ "              last 5 laptop needs: " + page2.getList()));
+		
 	}
 
 	@Transactional
