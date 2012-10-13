@@ -15,7 +15,9 @@ import javax.persistence.OneToMany;
 
 import org.joda.time.DateMidnight;
 
+import play.data.format.Formats;
 import play.data.validation.Constraints.Required;
+
 import play.db.jpa.JPA;
 
 import com.beoui.geocell.GeocellManager;
@@ -35,6 +37,7 @@ public class GiveItem {
 	@Required(message = "Email is required!")
 	private String email;
 	private String phone;
+	@Formats.DateTime(pattern = "MM/dd/yy")
 	private Date endDate;
 	private Double latitude;
 	private Double longitude;
