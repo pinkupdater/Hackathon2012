@@ -1,4 +1,11 @@
-@(title: String)
+@(needForm: Form[NeedItem])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Need Form
+}
 
 <!DOCTYPE html>
 
@@ -10,6 +17,63 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
     <body>
-      <h1>mori</h1>
+       @helper.form(action = routes.NeedForm.submit) {
+        
+        <fieldset>
+            <legend>Account informations</legend>
+            
+            @inputText(
+                needForm("name"), 
+                '_label -> "Title", 
+                '_help -> "Example: I need a TV.",
+                '_error -> needForm.globalError
+            )
+            
+             @inputText(
+                needForm("description"), 
+                '_label -> "Description", 
+                '_help -> "Example: max 81cm.",
+                '_error -> needForm.globalError
+            )
+            
+            @inputText(
+                needForm("location"), 
+                '_label -> "Location", 
+                '_error -> needForm.globalError
+            )
+            
+            @inputText(
+                needForm("date"), 
+                '_label -> "Date", 
+                '_error -> needForm.globalError
+            )
+            
+            @inputText(
+                needForm("email"), '_label -> "Email",
+                '_help -> "Enter a valid email address."
+            )
+            
+              @inputText(
+                needForm("phone"), 
+                '_label -> "Phone", 
+                '_error -> needForm.globalError
+            )
+            
+			  @inputRadioGroup(
+          		needForm("type"),
+          		options = options("PAID"->"Yes","FREE"->"No"),
+          		'_label -> "Willing to pay?",
+          		'_error -> needForm("gender").error.map(_.withMessage("select gender"))
+            )
+                
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="I need help">
+            <a href="@routes.Application.index" class="btn">Cancel</a>
+        </div>
+        
+    }
+  
     </body>
 </html>
