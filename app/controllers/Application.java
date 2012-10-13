@@ -2,8 +2,8 @@ package controllers;
 
 import java.util.Date;
 
-import model.NeedItem;
-import model.Page;
+import models.NeedItem;
+import models.Page;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
