@@ -10,7 +10,39 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
     <body>
-    <a href="@routes.NeedForm.formNeed()">I Give</a>
+    
+    
+   
         @content
-    </body>
+        
+		<div id="maincontainer">
+		
+		<div id="topsection"><div class="innertube"><h1>HELP ME</h1></div></div>
+		
+		<div id="contentwrapper">
+		<div id="contentcolumn">
+		<div class="innertube">
+			<div class='columnLeft'>
+		    		<a href="@routes.NeedForm.formNeed()"><em>I Give</em></a>
+	    	</div>
+	    	 <div class='columnRight'>
+	    		<a href="#">I Need</a>
+	    	 </div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="leftcolumn">
+		<div class="innertube"><b>Left Column: <em>230px</em></b> <script type="text/javascript">filltext(20)</script></div>
+		
+		</div>
+		
+		<div id="rightcolumn">
+		<div class="innertube"><b>Right Column: <em>200px</em></b> <script type="text/javascript">filltext(15)</script></div>
+		</div>
+		
+		<div id="footer"><a href="http://www.dynamicdrive.com/style/">Dynamic Drive CSS Library</a></div>
+		
+		</div>
+		</body>
 </html>
