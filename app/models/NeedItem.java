@@ -19,6 +19,8 @@ import com.beoui.geocell.GeocellManager;
 import com.beoui.geocell.model.Point;
 
 import play.data.validation.Constraints;
+import play.data.validation.Constraints.Required;
+import play.data.format.*;
 import play.db.jpa.JPA;
 
 @Entity
@@ -27,15 +29,15 @@ public class NeedItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Constraints.Required
+	@Required(message="Title is required!")
 	private String name;
 	@Enumerated(value = EnumType.STRING)
 	private ItemType type = ItemType.FREE;
 	private String description;
-	@Constraints.Required
-	@Constraints.Email
+	@Required(message="Email is required!")
 	private String email;
 	private String phone;
+	@Formats.DateTime(pattern="MM/dd/yy")
 	private Date endDate;
 	private Double latitude;
 	private Double longitude;

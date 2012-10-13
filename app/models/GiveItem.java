@@ -15,11 +15,11 @@ import javax.persistence.OneToMany;
 
 import org.joda.time.DateMidnight;
 
+import play.data.validation.Constraints.Required;
+import play.db.jpa.JPA;
+
 import com.beoui.geocell.GeocellManager;
 import com.beoui.geocell.model.Point;
-
-import play.data.validation.Constraints;
-import play.db.jpa.JPA;
 
 @Entity
 public class GiveItem {
@@ -27,13 +27,12 @@ public class GiveItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Constraints.Required
+	@Required(message = "Title is required!")
 	private String name;
 	@Enumerated(value = EnumType.STRING)
 	private ItemType type = ItemType.FREE;
 	private String description;
-	@Constraints.Required
-	@Constraints.Email
+	@Required(message = "Email is required!")
 	private String email;
 	private String phone;
 	private Date endDate;

@@ -8,9 +8,44 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/orange-hover.jpg")">
     </head>
     <body>
-    <a href="@routes.NeedForm.blank()">I Give</a>
-        @content
-    </body>
+
+<body>
+<div id="topsection"><div class="innertube"><h1>WE HELP</h1></div></div>
+<div id="topPanel">
+  <div id="headerPanelfast">
+    <h2>i NEED</h2>
+    <p>Share your need here</p>
+    <a href="@routes.NeedForm.blank()">&nbsp;</a></div>
+  <div id="headerPanelsecond">
+    <h2>+</h2>
+  </div>
+  <div id="headerPanelthird">
+    <h2>i GIVE</h2>
+    <p>Share your gift here</p>
+    <a href="@routes.GiveForm.blank()">&nbsp;</a></div>
+</div>
+<div id="bodyPanel">
+  
+  
+  
+<div id="helpLists">
+  <div id="needList" class='left'>
+  <h3>...were needed </h3>
+    <ul>
+    <li>Item1These were receivedThese were receivedThese were receivedThese were receivedThese were receivedThese were received</li>
+    </ul>
+  </div>
+  <div id="giveList" class='left' >
+  <h3>...were received </h4>
+  	<ul>
+    	<li>Item1These were receivedThese were receivedThese were receivedThese were receivedThese were receivedThese were received</li>
+    </ul>
+  </div>
+</div>
+</div>
+</body>
+		</body>
 </html>
