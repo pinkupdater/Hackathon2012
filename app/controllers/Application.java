@@ -46,6 +46,11 @@ public class Application extends Controller {
 
 		NeedItem.getBestMatching(100, cells, null);
 
+		List<String> cells = GeoCellUtil.getCells(47.666, 23.583, 50);
+		System.out.println(cells);
+
+		NeedItem.getBestMatching(100, cells, null);
+
 		for (int i = 0; i < 10; i++) {
 			GiveItem giveItem = new GiveItem();
 			giveItem.setName("I give a tv.");
