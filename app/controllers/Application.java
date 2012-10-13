@@ -1,6 +1,6 @@
 package controllers;
 
-import model.User;
+import models.User;
 import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
