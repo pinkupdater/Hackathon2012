@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.joda.time.DateMidnight;
+
 import play.data.validation.Constraints;
 import play.db.jpa.JPA;
 
@@ -60,15 +62,17 @@ public class NeedItem {
 		Long total = (Long) JPA
 				.em()
 				.createQuery(
-						"select count(c) from NeedItem c where lower(c.name) like ?")
+						"select count(c) from NeedItem c where lower(c.name) like ? and c.endDate >= ?")
 				.setParameter(1, "%" + filter.toLowerCase() + "%")
+				.setParameter(2, DateMidnight.now().toDate())
 				.getSingleResult();
 		List<NeedItem> data = JPA
 				.em()
 				.createQuery(
-						"from NeedItem c where lower(c.name) like ? order by c."
+						"from NeedItem c where lower(c.name) like ? and c.endDate >= ? order by c."
 								+ sortBy + " " + order)
 				.setParameter(1, "%" + filter.toLowerCase() + "%")
+				.setParameter(2, DateMidnight.now().toDate())
 				.setFirstResult((page - 1) * pageSize).setMaxResults(pageSize)
 				.getResultList();
 		return new Page<NeedItem>(data, total, page, pageSize);
