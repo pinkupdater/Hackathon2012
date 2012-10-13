@@ -3,9 +3,8 @@
 @import helper._
 @import helper.twitterBootstrap._
 
-@title = {
-    Need Form
-}
+@title = { Need Form }
+
 
 <!DOCTYPE html>
 
@@ -13,6 +12,7 @@
     <head>
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
@@ -20,7 +20,7 @@
        @helper.form(action = routes.NeedForm.submit) {
         
         <fieldset>
-            <legend>Account informations</legend>
+            <legend>Add need request</legend>
             
             @inputText(
                 needForm("name"), 
