@@ -1,7 +1,52 @@
-@(message: String)
+@(currentPage: models.Page[NeedItem], currentSortBy: String, currentOrder: String, currentFilter: String, page2:models.Page[GiveItem])
 
 @main("Welcome to Play 2.0") {
+    <div id="helpLists">
+  <div id="needList" class='left'>
+  <h3>...were needed </h3>
+    <ul>
+    	@for(need<- currentPage.getList) {
+                    <li>
+                            <b>@need.getName</b><br/>
+                            @if(need.getType.name == "PAID") {
+                            	I am willing to pay.<br/>
+                            }
+                            Contact me at: <a href="mailto:@need.getEmail?Subject=RE: @need.getName">@need.getEmail</a>
+                            @if(need.getPhone != null) {
+                                 or phone me: @need.getPhone
+                            }
+                            .<br/>
+                            @if(need.getDescription != null) {
+                            	Additional info: @need.getDescription
+                            }
+                     </li>
+                }
     
-    @message
+    </ul>
+  </div>
+  <div id="giveList" class='left' >
+  
+  <h3>...were received </h4>
+  	<ul>
+    	@for(need<- currentPage.getList) {
+                    <li>
+                            <b>@need.getName</b><br/>
+                            @if(need.getType.name == "PAID") {
+                            	I am willing to pay.<br/>
+                            }
+                            Contact me at: <a href="mailto:@need.getEmail?Subject=RE: @need.getName">@need.getEmail</a>
+                            @if(need.getPhone != null) {
+                                 or phone me: @need.getPhone
+                            }
+                            .<br/>
+                            @if(need.getDescription != null) {
+                            	Additional info: @need.getDescription
+                            }
+                     </li>
+                }
+    </ul>
+  </div>
+</div>
+</div>
     
 }

@@ -15,10 +15,6 @@ import views.html.giveList;
 import views.html.index;
 import views.html.needList;
 
-import com.beoui.geocell.GeocellManager;
-import com.beoui.geocell.model.BoundingBox;
-import com.beoui.geocell.model.Point;
-
 public class Application extends Controller {
 
 	private static boolean initialized = false;
@@ -43,6 +39,8 @@ public class Application extends Controller {
 
 		List<String> cells = GeoCellUtil.getCells(47.666, 23.583, 50);
 		System.out.println(cells);
+
+		NeedItem.getBestMatching(100, cells, null);
 
 		NeedItem.getBestMatching(100, cells, null);
 
@@ -72,11 +70,12 @@ public class Application extends Controller {
 			initialize();
 		}
 
-		Page<NeedItem> page = NeedItem.getPage(1, 3, "id", "asc", "tv");
-		Page<NeedItem> page2 = NeedItem.getPage(1, 5, "id", "desc", "laptop");
 
-		return ok(index.render("first 3 tv needs: " + page.getList()
-				+ "              last 5 laptop needs: " + page2.getList()));
+		Page<NeedItem> page1 = NeedItem
+				.getPage(0, 4, "id", "desc", "");
+		Page<GiveItem> page2 = GiveItem
+				.getPage(0, 4, "id", "desc", "");
+		return ok(index.render(page1, "id", "desc", "", page2));
 	}
 
 	@Transactional
@@ -102,4 +101,5 @@ public class Application extends Controller {
 				.getPage(page, 10, sortBy, order, filter);
 		return ok(giveList.render(page1, sortBy, order, filter));
 	}
+	
 }
