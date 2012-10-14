@@ -569,10 +569,14 @@ pre {
  * ------------------------------------------------------------- */
 form {
   margin-bottom: 18px;
+  margin-left: auto;
+  margin-right: auto;
 }
 fieldset {
   margin-bottom: 18px;
   padding-top: 18px;
+  margin-left: auto;
+  margin-right: auto;
 }
 fieldset legend {
   display: block;
