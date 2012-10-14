@@ -1,5 +1,6 @@
 /* CSS Document */
 
+
 body {
 	background:url(../images/banner.jpg)
     padding-top: 0; /* 40px to make the container go all the way to the bottom of the topbar */
@@ -10,7 +11,6 @@ ul{list-style-type:none;}
 
 
 #banner h1{
-	
 	margin: 0;
 	padding-top: 0px;
 	padding-left:542px;
@@ -73,39 +73,21 @@ ul{list-style-type:none;}
 #bodyPanel ul span{ background:url(../images/dot-line.gif) repeat-x 0 100%; height:25px; display:block;}
 
 #needList {
-	margin-top: 75px;
+	margin:0;
 	float:left; 
 	width: 50%;
 	height: auto;
+	margin-bottom: 25px;
 }
 
 #giveList {
-	margin: 75px;
-	float:right; 
-	
+	margin: 0;
+	float:left; 
+	width: 50%;
 	height: auto;
-}
-#needList ul li {
-	float: left;
-	height: auto;
-    left: 0;
-    margin: 110px 33px 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    width: 246px;
+	margin-bottom: 25px;
 }
 
-#giveList ul li {
-	float: left;
-	height: auto;
-    left: 0;
-    margin: 110px 33px 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    width: 246px;
-}
 .container > footer p {
     text-align: center; /* center align it with the container */
 }
