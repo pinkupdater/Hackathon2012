@@ -37,7 +37,7 @@
   
   <h3>...were received </h4>
   	<ul>
-    	@for(need<- currentPage.getList) {
+    	@for(need<- page2.getList) {
                     <li>
                             <b>@need.getName</b><br/>
                             @if(need.getType.name == "PAID") {
