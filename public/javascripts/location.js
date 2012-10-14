@@ -25,6 +25,9 @@ function initialize() {
       if (place.geometry.location) {
     	  document.getElementById('location').value = place.geometry.location;
       }
+      if (document.getElementById('locationName')) {
+    	  document.getElementById('locationName').value = input.value;
+      }
       if (!place.geometry) {
         // Inform the user that the place was not found and return.
         input.className = 'notfound';

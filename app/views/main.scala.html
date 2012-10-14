@@ -1,21 +1,21 @@
 @(title: String)(content: Html)
 <!DOCTYPE html>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/orange-hover.jpg")">
-    </head>
-    <body>
-<div id="banner">
-	<div class=bannerBG>
-		<h1>WE HELP</h1>
+<head>
+<title>@title</title>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/orange-hover.jpg")">
+</head>
+<body>
+	<div id="banner">
+		<div class=bannerBG>
+			<h1>WE HELP</h1>
+		</div>
 	</div>
-</div>
-  
-@content
-		</body>
+
+	@content
+</body>
 </html>

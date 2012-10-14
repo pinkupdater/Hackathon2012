@@ -43,8 +43,8 @@
         
         <form action="@link(0, "name")" method="GET">
             <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Search for...">
-            <input id="searchTextField" type="text"></input>
-            <input type="hidden" name="location" id="location" />
+            <input id="searchTextField" type="text" form = "myform"></input>
+            <input type="hidden" name="l" id="location" />
             <input type="submit" id="searchsubmit" value="Find">
             <div id="map_canvas"></div>
         </form>
@@ -61,20 +61,25 @@
         
         <ul>
            
-                @for(need<- currentPage.getList) {
+           @for(need<- currentPage.getList) {
            <li>                 
            <b>@need.getName</b><br/>
                             @if(need.getType.name == "PAID") {
                             	I am willing to pay.<br/>
                             }
                             Contact me at: <a href="mailto:@need.getEmail?Subject=RE: @need.getName">@need.getEmail</a>
-                            @if(need.getPhone != null) {
+                            @if(need.getPhone != null && !need.getPhone.isEmpty) {
                                  or phone me: @need.getPhone
                             }
-                            .<br/>
-                            @if(need.getDescription != null) {
+                            <br/>
+                            @if(need.getLocationName != null && !need.getLocationName.isEmpty) {
+                            	Location: @need.getLocationName
+                            }
+                           	<br/>
+                            @if(need.getDescription != null && !need.getDescription.isEmpty) {
                             	Additional info: @need.getDescription
                             }
+                            <br/>
                <br/></li> }
 </ul>
 

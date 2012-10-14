@@ -36,5 +36,4 @@ public class NeedForm extends Controller{
 		 return ok(needList.render(page1, "id", "desc", ""));
 		 }
 	}
-	
 }
