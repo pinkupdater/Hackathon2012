@@ -49,12 +49,15 @@
                 '_error -> giveForm.globalError
             )
             
-          <label for="searchTextField">Location</label>
-            <input id="searchTextField" type="text" form="myForm" ></input>
-            
+            <div id="searchTextField_field" class="clearfix ">
+            <label for="searchTextField">Location</label>
+            	<div class="input">
+            		<input id="searchTextField" type="text" form="myForm"></input>
+            	</div>
+            </div>
 			 <div id="map_canvas"></div>    
-            
-            @inputText(
+ 
+			@inputText(
                 giveForm("endDate"),
                 '_label -> "Date",
                 '_help -> " please give a date in the future",
@@ -67,18 +70,21 @@
                 '_help -> "Enter a valid email address."
             )
             
-              @inputText(
+            @inputText(
                 giveForm("phone"), 
                 '_label -> "Phone", 
                 '_error -> giveForm.globalError
             )
             
-			  @inputRadioGroup(
-          		giveForm("type"),
-          		options = options("PAID"->"Yes","FREE"->"No"),
-          		'_label -> "Willing to pay?",
-          		'_error -> giveForm("gender").error.map(_.withMessage("select gender"))
-            )
+            <div id="type_field" class="clearfix ">
+				<label for="type">Need Money?</label>
+				<div class="input">
+					<input id="type" type="checkbox" value="PAID" name="type">
+					<span></span>
+					<span class="help-inline"></span>
+					<span class="help-block"></span>
+				</div>
+			</div>
                 
         </fieldset>
         
