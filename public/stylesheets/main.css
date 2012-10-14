@@ -1,28 +1,32 @@
 /* CSS Document */
 
-body{background:#fff; color:#0F0F0F; font:15px/20px Arial, Helvetica, sans-serif; margin:32px 0 0; padding:0;}
+body {
+	background:url(../images/fantasy_banner.jpg)
+    padding-top: 0; /* 40px to make the container go all the way to the bottom of the topbar */
+}
 div, ul, h1, h2, h3, li, p, img{margin:0; padding:0;}
 ul{list-style-type:none;}
 
-/* header */
-#topsection{
-background: #4a78d8;
-padding-top: 0;
-height: 90px; /*Height of top section*/
-width: 762px;
-position: relative;
-margin: 0 auto;
-}
 
-#topsection h1{
+
+#banner h1{
+	
 	margin: 0;
-	padding-top: 30px;
+	padding-top: 0px;
 	padding-left:542px;
 	font-size:60px;
 }
+.bannerBG{
+	background:url(../images/fantasy_banner.jpg);
+	height: 321px;
+	width: 762px;
+	margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
 
 /* TOP PANEL*/
-#topPanel{width:762px; height:373px; position:relative; margin:0 auto; padding:0;}
+#topPanel{width:762px; height:373px; position:relative; margin:-96px 412px; padding:0;}
 #topPanel img{width:230px; height:80px; z-index:1; padding:0; position:absolute; margin:0 0 0 21px;}
 /* MENU PANEL*/
 #topPanel ul{display:block; width:732px; height:36px; position:absolute; top:0; right:0; margin:11px 0 0; padding:0 29px 0 0; border-bottom:1px solid #AEAEAE;}
@@ -31,7 +35,7 @@ margin: 0 auto;
 #topPanel ul li a:hover{width:74px; height:36px; text-decoration:none; background:url(../images/button.gif) no-repeat 0 0 #AEAEAE; color:#fff;}
 #topPanel ul li.active{width:74px; display:block; height:36px; background:url(../images/button.gif) no-repeat 0 0 #AEAEAE; color:#fff; text-align:center; margin:0 1px 0 0;}
 /* HEADER PANEL*/
-#topPanel #headerPanelfast{width:246px; height:263px; position:absolute; top:0; left:0; margin:110px 0 0; padding:0px; background:url(../images/btnNeed.jpg) no-repeat 0 0 #FC5F00; color:#fff;}
+#topPanel #headerPanelfast{width:246px; height:263px; position:absolute; top:0; left:0; margin:110px 0 0; padding:0px; background:url(../images/btnNeed.jpg) no-repeat 0 0 }
 #topPanel #headerPanelfast a{width:246px; height:263px; display:block; text-decoration:none; }
 
 #topPanel #headerPanelfast h2{display:block; width:90px; height:47px; margin:54px 0 0 120px; font:28px/28px "Trebuchet MS",Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; position:absolute; top:0px; left:0px; z-index:1;}
@@ -42,7 +46,7 @@ margin: 0 auto;
 
 #topPanel #headerPanelsecond h2{display:block; width:90px; height:47px; background:none; margin:54px 0 0 85px; font:120px/180px "Trebuchet MS",Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; padding:0; position:absolute; z-index:1;}
 
-#topPanel #headerPanelthird{width:246px; height:263px; position:absolute; top:0; right:0; margin:110px 0 0; padding:0px; background:url(../images/btnGive.jpg) no-repeat 0 0 #FC5F00; color:#fff;}
+#topPanel #headerPanelthird{width:246px; height:263px; position:absolute; top:0; right:0; margin:110px 0 0; padding:0px; background:url(../images/btnGive.jpg) no-repeat 0 0 }
 #topPanel #headerPanelthird a{width:246px; height:263px; display:block; text-decoration:none; }
 
 #topPanel #headerPanelthird h2{display:block; width:90px; height:47px; background:none; margin:54px 0 0 93px; font:28px/28px "Trebuchet MS",Arial, Helvetica, sans-serif; font-weight:bold; text-transform:uppercase; padding:0; position:absolute; z-index:1;}
@@ -73,13 +77,6 @@ margin: 0 auto;
 
 
 
-<<<<<<< HEAD
-html, body {
-    background-color: #eee;
-}
-body {
-    padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
-}
 .container > footer p {
     text-align: center; /* center align it with the container */
 }
@@ -153,23 +150,10 @@ body {
 .phone_template, .profile_template {
     display: none;
 
-body {background:#fff; color:#0F0F0F; font:15px/20px Arial, Helvetica, sans-serif; margin:32px 0 0; padding:0;}
+
 div, ul, h1, h2, h3, li, p, img{margin:0; padding:0;}
 ul{list-style-type:none;}
 
-/* header */
-#topsection{
-background: blue;
-height: 90px; /*Height of top section*/
-
-}
-
-#topsection h1{
-	margin: 0;
-	padding-top: 30px;
-	padding-left:542px;
-	font-size:60px;
-}
 
 /* TOP PANEL*/
 #topPanel{width:762px; height:373px; position:relative; margin:0 auto; padding:0;}
@@ -196,7 +180,7 @@ height: 90px; /*Height of top section*/
     display: block;
     font: bold 171px/74px "Trebuchet MS",Arial,Helvetica,sans-serif;
     height: 47px;
-    margin: 54px 0 0 70px;
+    margin: 133px 0 0 286px
     padding: 0;
     position: absolute;
     text-transform: uppercase;

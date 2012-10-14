@@ -1,6 +1,21 @@
 @(currentPage: models.Page[NeedItem], currentSortBy: String, currentOrder: String, currentFilter: String, page2:models.Page[GiveItem])
 
 @main("Welcome to Play 2.0") {
+<div id="topPanel">
+  <div id="headerPanelfast">
+  <!--    <h2>i NEED</h2>
+    <p>Share your need here</p> -->
+    <a href="@routes.NeedForm.blank()">&nbsp;</a></div>
+  <div id="headerPanelsecond">
+    <h2>-></h2>
+  </div>
+  <div id="headerPanelthird">
+   <!--   <h2>i GIVE</h2>
+    <p>Share your gift here</p> -->
+    <a href="@routes.GiveForm.blank()">&nbsp;</a></div>
+</div>
+<div id="bodyPanel">
+
     <div id="helpLists">
   <div id="needList" class='left'>
   <h3>...were needed </h3>
