@@ -11,8 +11,8 @@
 <html>
     <head>
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/forms.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
@@ -28,6 +28,10 @@
         
     </head>
     <body>
+        <div class="container">
+<div class="content">    
+    <div class="row">
+                    <div class="span7">
        @helper.form(action = routes.GiveForm.submit) {
         
         <input type="hidden" name="location" id="location" />
@@ -89,12 +93,14 @@
                 
         </fieldset>
         
-        <div class="actions">
-            <input type="submit" class="btn primary" value="Save my offer">
+        <div class="actionsNeed">
+            <input type="submit" class="btn primary" value="I need help">
             <a href="@routes.Application.index" class="btn">Cancel</a>
         </div>
-        
     }
-  
     </body>
+    </div>
+  </div>
+</div>  
+</div>
 </html>
