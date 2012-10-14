@@ -13,6 +13,7 @@
     <div id="helpLists">
   <div id="needList">
   <h3>...were needed </h3>
+   <a href="/listNeed">See all</a>
     <ul>
     	@for(need<- currentPage.getList) {
                     <li>
@@ -35,7 +36,8 @@
   </div>
   <div id="giveList" >
   
-  <h3>...were received </h4>
+  <h3>...were offered </h3>
+ <a href="/listGive">See all</a>
   	<ul>
     	@for(need<- page2.getList) {
                     <li>

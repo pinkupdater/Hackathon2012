@@ -32,8 +32,8 @@
 
 @main("Give list") {
 
-    <h1 id="homeTitle">@Messages("I Give", currentPage.getTotalRowCount)</h1>
-	
+    <h1 id="homeTitle">@Messages("Others' offers", currentPage.getTotalRowCount)</h1>
+	<br/>
 	<div class="giveSearch">
 	
     @if(flash.containsKey("success")) {
@@ -85,35 +85,23 @@
                             @if(give.getDescription != null && !give.getDescription.isEmpty) {
                             	Additional info: @give.getDescription
                             }
-                      </li>
+                      </li><br/>
                 }
 
            </ul>
-
+<br/>
         <div id="pagination" class="pagination">
-            <ul>
                 @if(currentPage.hasPrev) {
-                    <li class="prev">
                         <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
-                    </li>
                 } else {
-                    <li class="prev disabled">
                         <a>&larr; Previous</a>
-                    </li>
                 }
-                <li class="current">
-                    <a>Displaying @currentPage.getDisplayXtoYofZ</a>
-                </li>
+                    <a>[ Displaying @currentPage.getDisplayXtoYofZ ]</a>
                 @if(currentPage.hasNext) {
-                    <li class="next">
                         <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
-                    </li>
                 } else {
-                    <li class="next disabled">
                         <a>Next &rarr;</a>
-                    </li>
                 }
-            </ul>
         </div>
         
     }
@@ -121,3 +109,4 @@
 }
 </div>
             
+            <br/>
