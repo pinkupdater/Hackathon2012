@@ -46,13 +46,13 @@ public class Application extends Controller {
 
 	@Transactional
 	public static Result giveList(int page, String sortBy, String order,
-			String filter) {
+			String filter, String location) {
 		if (!initialized) {
 			initialize();
 		}
 
-		Page<GiveItem> page1 = GiveItem
-				.getPage(page, 10, sortBy, order, filter);
+		Page<GiveItem> page1 = GiveItem.getPage(page, 10, sortBy, order,
+				filter, location);
 		return ok(giveList.render(page1, sortBy, order, filter));
 	}
 
