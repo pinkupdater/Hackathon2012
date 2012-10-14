@@ -30,12 +30,12 @@ public class GiveItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Required(message = "Title is required!")
+	@Required(message = "This is required!")
 	private String name;
 	@Enumerated(value = EnumType.STRING)
 	private ItemType type = ItemType.FREE;
 	private String description;
-	@Required(message = "Email is required!")
+	@Required(message = "This is required!")
 	private String email;
 	private String phone;
 	@Formats.DateTime(pattern = "MM/dd/yy")
@@ -45,7 +45,7 @@ public class GiveItem {
 	private boolean showDetails = false;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<GiveGeoCell> geoCells;
-
+	private String locationName;
 	@Transient
 	private String location;
 
@@ -241,6 +241,18 @@ public class GiveItem {
 		this.geoCells = geoCells;
 	}
 
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
 	public void setGeoCellsStrings(List<String> geoCellsStrings) {
 		this.geoCells = new ArrayList<GiveGeoCell>();
 		for (String geoString : geoCellsStrings) {
@@ -262,5 +274,68 @@ public class GiveItem {
 				}
 			}
 		}
+	}
+
+	public static Page<GiveItem> getPage(int page, int i, String sortBy,
+			String order, String filter, String location) {
+		System.out.println(location);
+		if (filter == null) {
+			filter = "";
+		}
+
+		if (location != null && location.length() >= 2) {
+			String[] fields = location.substring(1, location.length() - 1)
+					.split(",\\s");
+			if (fields.length == 2) {
+				try {
+					Double latitude = Double.parseDouble(fields[0]);
+					Double longitude = Double.parseDouble(fields[1]);
+					System.out.println(latitude + " " + longitude);
+					List<String> cells = GeoCellUtil.getCells(latitude,
+							longitude, 50);
+					if (cells != null) {
+						return searchInCells(page, i, sortBy, order, filter,
+								cells);
+					}
+				} catch (NumberFormatException e) {
+					// silently ignore and do nothing.
+				}
+
+			}
+		} else {
+			return getPage(page, i, sortBy, order, filter);
+		}
+
+		return new Page<GiveItem>(new ArrayList<GiveItem>(), 0, page, i);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Page<GiveItem> searchInCells(int page, int pageSize,
+			String sortBy, String order, String filter, List<String> cells) {
+		if (page < 1) {
+			page = 1;
+		}
+		List<String> ids = JPA
+				.em()
+				.createQuery(
+						"select distinct n.giveItem.id from GiveGeoCell n where n.value in ( :cells ) order by n.giveItem.id desc")
+				.setParameter("cells", cells).getResultList();
+		List<GiveItem> data = null;
+
+		if (ids != null && !ids.isEmpty()) {
+			data = JPA
+					.em()
+					.createQuery(
+							"from GiveItem n where lower(n.name) like :name and n.endDate >= :enddate and n.id in ( :ids ) order by n.id desc")
+					.setParameter("name", "%" + filter.toLowerCase() + "%")
+					.setParameter("enddate", DateMidnight.now().toDate())
+					.setParameter("ids", ids)
+					.setFirstResult((page - 1) * pageSize)
+					.setMaxResults(pageSize).getResultList();
+		}
+		if (data == null) {
+			data = new ArrayList<GiveItem>();
+		}
+		return new Page<GiveItem>(data, data.size(), page, pageSize);
 	}
 }

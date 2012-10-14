@@ -35,14 +35,15 @@
        @helper.form(action = routes.GiveForm.submit) {
         
         <input type="hidden" name="location" id="location" />
-        
+       <input type="hidden" name="locationName" id="locationName" />
+         
         <fieldset>
-            <legend>Add give request</legend>
+            <legend>Add offer to help</legend>
             
             @inputText(
                 giveForm("name"), 
-                '_label -> "Title", 
-                '_help -> "Example: I need a TV.",
+                '_label -> "* I give ", 
+                '_help -> "Example: TV",
                 '_error -> giveForm.globalError
             )
             
@@ -53,24 +54,24 @@
                 '_error -> giveForm.globalError
             )
             
-            <div id="searchTextField_field" class="clearfix ">
-            <label for="searchTextField">Location</label>
-            	<div class="input">
-            		<input id="searchTextField" type="text" form="myForm"></input>
+          <div id="searchTextField_field" class="clearfix ">
+            <label for="searchTextField">My location</label>
+				<div class="input">
+            		<input id="searchTextField" type="text" form="needForm" ></input>
             	</div>
             </div>
 			 <div id="map_canvas"></div>    
- 
+  
 			@inputText(
                 giveForm("endDate"),
-                '_label -> "Date",
-                '_help -> " please give a date in the future",
+                '_label -> "Last day active",
+                '_help -> "Please give a date in the future.",
                 'id -> "datepicker",
                 '_error -> giveForm.globalError
             )
             
             @inputText(
-                giveForm("email"), '_label -> "Email",
+                giveForm("email"), '_label -> "* Email address",
                 '_help -> "Enter a valid email address."
             )
             
