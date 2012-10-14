@@ -8,7 +8,7 @@ GET     /                           controllers.Application.index()
 # Form need
 GET     /formNeed                   controllers.NeedForm.blank()
 POST    /formNeed                   controllers.NeedForm.submit()
-GET     /listNeed                   controllers.Application.needList(p:Int ?= 0, s ?= "id", o ?= "desc", f ?= "")
+GET     /listNeed                   controllers.Application.needList(p:Int ?= 0, s ?= "id", o ?= "desc", f ?= "", l ?= "")
 
 # Form give
 GET     /formGive                   controllers.GiveForm.blank()

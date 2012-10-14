@@ -16,14 +16,12 @@ import javax.persistence.Transient;
 
 import org.joda.time.DateMidnight;
 
+import play.data.format.Formats;
+import play.data.validation.Constraints.Required;
+import play.db.jpa.JPA;
+
 import com.beoui.geocell.GeocellManager;
 import com.beoui.geocell.model.Point;
-
-import play.data.validation.Constraints;
-import play.data.validation.Constraints.Required;
-import play.data.format.*;
-import play.db.jpa.JPA;
-import scala.actors.threadpool.Arrays;
 
 @Entity
 public class NeedItem {
@@ -126,7 +124,7 @@ public class NeedItem {
 						.setParameter("name", "%" + filter.toLowerCase() + "%")
 						.setParameter("enddate", DateMidnight.now().toDate())
 						.setParameter("ids", ids).setFirstResult(0)
-						.setMaxResults(pageSize - ids.size()).getResultList();
+						.setMaxResults(pageSize - data.size()).getResultList();
 
 				if (data2 != null) {
 					data.addAll(data2);
@@ -140,7 +138,7 @@ public class NeedItem {
 							"from NeedItem n where lower(n.name) like :name and n.endDate >= :enddate order by n.id desc")
 					.setParameter("name", "%" + filter.toLowerCase() + "%")
 					.setParameter("enddate", DateMidnight.now().toDate())
-					.setFirstResult(0).setMaxResults(pageSize - ids.size())
+					.setFirstResult(0).setMaxResults(pageSize - data.size())
 					.getResultList();
 		}
 		return data;
@@ -272,5 +270,80 @@ public class NeedItem {
 	@Override
 	public String toString() {
 		return "NeedItem [id=" + id + ", name=" + name + "]";
+	}
+
+	public static Page<NeedItem> getPage(int page, int i, String sortBy,
+			String order, String filter, String location) {
+		if (filter == null) {
+			filter = "";
+		}
+		if (location != null && location.length() >= 2) {
+			String[] fields = location.substring(1, location.length() - 1)
+					.split(",\\s");
+			if (fields.length == 2) {
+				try {
+					Double latitude = Double.parseDouble(fields[0]);
+					Double longitude = Double.parseDouble(fields[1]);
+					Point p = new Point(latitude, longitude);
+					List<String> cells = GeoCellUtil.getCells(latitude,
+							longitude, 50);
+					if (cells != null) {
+						return searchInCells(page, i, sortBy, order, filter,
+								cells);
+					}
+				} catch (NumberFormatException e) {
+					// silently ignore and do nothing.
+				}
+
+			}
+		}
+		return getPage(page, i, sortBy, order, filter);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Page<NeedItem> searchInCells(int page, int pageSize,
+			String sortBy, String order, String filter, List<String> cells) {
+		List<String> ids = JPA
+				.em()
+				.createQuery(
+						"select distinct n.needItem.id from NeedGeoCell n where n.value in ( :cells ) order by n.needItem.id desc")
+				.setParameter("cells", cells).getResultList();
+		List<NeedItem> data = null;
+
+		if (ids != null && !ids.isEmpty()) {
+			data = JPA
+					.em()
+					.createQuery(
+							"from NeedItem n where lower(n.name) like :name and n.endDate >= :enddate and n.id in ( :ids ) order by n.id desc")
+					.setParameter("name", "%" + filter.toLowerCase() + "%")
+					.setParameter("enddate", DateMidnight.now().toDate())
+					.setParameter("ids", ids)
+					.setFirstResult((page - 1) * pageSize)
+					.setMaxResults(pageSize).getResultList();
+			if (data == null) {
+				data = new ArrayList<NeedItem>();
+			}
+			if (data.size() < pageSize) {
+				List<NeedItem> data2 = JPA
+						.em()
+						.createQuery(
+								"from NeedItem n where lower(n.name) like :name and n.endDate >= :enddate and n.id not in (:ids) order by n.id desc")
+						.setParameter("name", "%" + filter.toLowerCase() + "%")
+						.setParameter("enddate", DateMidnight.now().toDate())
+						.setParameter("ids", ids)
+						.setFirstResult((page - 1) * pageSize + data.size())
+						.setMaxResults(pageSize - data.size()).getResultList();
+
+				if (data2 != null) {
+					data.addAll(data2);
+				}
+			}
+
+		} else {
+			return getPage(page, pageSize, sortBy, order, filter);
+		}
+
+		return new Page<NeedItem>(data, data.size(), page, pageSize);
 	}
 }
