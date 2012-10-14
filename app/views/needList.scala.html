@@ -33,6 +33,7 @@
 
     <h1 id="homeTitle">@Messages("Others' needs", currentPage.getTotalRowCount)</h1>
 <br/>
+<div class="giveSearch">
     @if(flash.containsKey("success")) {
         <div class="alert-message warning">
             <strong>Done!</strong> @flash.get("success")
@@ -114,5 +115,5 @@
     }
         
 }
-
+</div>
             
