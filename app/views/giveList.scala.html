@@ -33,7 +33,9 @@
 @main("Give list") {
 
     <h1 id="homeTitle">@Messages("I Give", currentPage.getTotalRowCount)</h1>
-
+	
+	<div class="giveSearch">
+	
     @if(flash.containsKey("success")) {
         <div class="alert-message warning">
             <strong>Done!</strong> @flash.get("success")
@@ -60,13 +62,12 @@
         
     } else {
         
-        <table>
-            <tbody>
-
+        <ul>
                 @for(give <- currentPage.getList) {
-                    <tr>
-                        <td>
+
+                    <li>
                             <b>I give: @give.getName</b><br/>
+
                             @if(give.getType.name == "PAID") {
                             	I want to get paid.<br/>
                             } else {
@@ -84,12 +85,10 @@
                             @if(give.getDescription != null && !give.getDescription.isEmpty) {
                             	Additional info: @give.getDescription
                             }
-                        </td>
-                    </tr>
+                      </li>
                 }
 
-            </tbody>
-        </table>
+           </ul>
 
         <div id="pagination" class="pagination">
             <ul>
@@ -120,5 +119,5 @@
     }
         
 }
-
+</div>
             
