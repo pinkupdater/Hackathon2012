@@ -64,7 +64,7 @@
            
            @for(need<- currentPage.getList) {
            <li>                 
-           <b>@need.getName</b><br/>
+           <b>I need: @need.getName</b><br/>
                             @if(need.getType.name == "PAID") {
                             	I am willing to pay.<br/>
                             } else {

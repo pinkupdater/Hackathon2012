@@ -64,8 +64,10 @@
         
         <ul>
                 @for(give <- currentPage.getList) {
+
                     <li>
-                            <b>@give.getName</b><br/>
+                            <b>I give: @give.getName</b><br/>
+
                             @if(give.getType.name == "PAID") {
                             	I want to get paid.<br/>
                             } else {
