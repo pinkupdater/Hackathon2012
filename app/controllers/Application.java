@@ -15,10 +15,6 @@ import views.html.giveList;
 import views.html.index;
 import views.html.needList;
 
-import com.beoui.geocell.GeocellManager;
-import com.beoui.geocell.model.BoundingBox;
-import com.beoui.geocell.model.Point;
-
 public class Application extends Controller {
 
 	private static boolean initialized = false;
@@ -45,9 +41,6 @@ public class Application extends Controller {
 		System.out.println(cells);
 
 		NeedItem.getBestMatching(100, cells, null);
-
-		List<String> cells = GeoCellUtil.getCells(47.666, 23.583, 50);
-		System.out.println(cells);
 
 		NeedItem.getBestMatching(100, cells, null);
 
