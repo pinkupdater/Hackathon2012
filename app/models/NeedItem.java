@@ -44,7 +44,7 @@ public class NeedItem {
 	private boolean showDetails = false;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<NeedGeoCell> geoCells;
-
+	private String locationName;
 	@Transient
 	private String location;
 
@@ -189,7 +189,9 @@ public class NeedItem {
 	}
 
 	public void setPhone(String phone) {
-		this.phone = phone;
+		if (phone != null && !phone.isEmpty()) {
+			this.phone = phone;
+		}
 	}
 
 	public Date getEndDate() {
@@ -274,9 +276,11 @@ public class NeedItem {
 
 	public static Page<NeedItem> getPage(int page, int i, String sortBy,
 			String order, String filter, String location) {
+		System.out.println(location);
 		if (filter == null) {
 			filter = "";
 		}
+
 		if (location != null && location.length() >= 2) {
 			String[] fields = location.substring(1, location.length() - 1)
 					.split(",\\s");
@@ -284,7 +288,7 @@ public class NeedItem {
 				try {
 					Double latitude = Double.parseDouble(fields[0]);
 					Double longitude = Double.parseDouble(fields[1]);
-					Point p = new Point(latitude, longitude);
+					System.out.println(latitude + " " + longitude);
 					List<String> cells = GeoCellUtil.getCells(latitude,
 							longitude, 50);
 					if (cells != null) {
@@ -296,14 +300,19 @@ public class NeedItem {
 				}
 
 			}
+		} else {
+			return getPage(page, i, sortBy, order, filter);
 		}
-		return getPage(page, i, sortBy, order, filter);
 
+		return new Page<NeedItem>(new ArrayList<NeedItem>(), 0, page, i);
 	}
 
 	@SuppressWarnings("unchecked")
 	private static Page<NeedItem> searchInCells(int page, int pageSize,
 			String sortBy, String order, String filter, List<String> cells) {
+		if (page < 1) {
+			page = 1;
+		}
 		List<String> ids = JPA
 				.em()
 				.createQuery(
@@ -321,29 +330,20 @@ public class NeedItem {
 					.setParameter("ids", ids)
 					.setFirstResult((page - 1) * pageSize)
 					.setMaxResults(pageSize).getResultList();
-			if (data == null) {
-				data = new ArrayList<NeedItem>();
-			}
-			if (data.size() < pageSize) {
-				List<NeedItem> data2 = JPA
-						.em()
-						.createQuery(
-								"from NeedItem n where lower(n.name) like :name and n.endDate >= :enddate and n.id not in (:ids) order by n.id desc")
-						.setParameter("name", "%" + filter.toLowerCase() + "%")
-						.setParameter("enddate", DateMidnight.now().toDate())
-						.setParameter("ids", ids)
-						.setFirstResult((page - 1) * pageSize + data.size())
-						.setMaxResults(pageSize - data.size()).getResultList();
-
-				if (data2 != null) {
-					data.addAll(data2);
-				}
-			}
-
-		} else {
-			return getPage(page, pageSize, sortBy, order, filter);
 		}
-
+		if (data == null) {
+			data = new ArrayList<NeedItem>();
+		}
 		return new Page<NeedItem>(data, data.size(), page, pageSize);
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		if (locationName != null && !locationName.isEmpty()) {
+			this.locationName = locationName;
+		}
 	}
 }
