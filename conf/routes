@@ -13,7 +13,7 @@ GET     /listNeed                   controllers.Application.needList(p:Int ?= 0,
 # Form give
 GET     /formGive                   controllers.GiveForm.blank()
 POST    /formGive                   controllers.GiveForm.submit()
-GET     /listGive                   controllers.Application.giveList(p:Int ?= 0, s ?= "id", o ?= "desc", f ?= "")
+GET     /listGive                   controllers.Application.giveList(p:Int ?= 0, s ?= "id", o ?= "desc", f ?= "", l ?= "")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

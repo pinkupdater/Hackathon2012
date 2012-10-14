@@ -29,12 +29,12 @@ public class NeedItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Required(message = "Title is required!")
+	@Required(message = "This is required!")
 	private String name;
 	@Enumerated(value = EnumType.STRING)
 	private ItemType type = ItemType.FREE;
 	private String description;
-	@Required(message = "Email is required!")
+	@Required(message = "This is required!")
 	private String email;
 	private String phone;
 	@Formats.DateTime(pattern = "MM/dd/yy")
@@ -267,11 +267,6 @@ public class NeedItem {
 				}
 			}
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "NeedItem [id=" + id + ", name=" + name + "]";
 	}
 
 	public static Page<NeedItem> getPage(int page, int i, String sortBy,

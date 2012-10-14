@@ -66,6 +66,8 @@
            <b>@need.getName</b><br/>
                             @if(need.getType.name == "PAID") {
                             	I am willing to pay.<br/>
+                            } else {
+                            	I want this for free.
                             }
                             Contact me at: <a href="mailto:@need.getEmail?Subject=RE: @need.getName">@need.getEmail</a>
                             @if(need.getPhone != null && !need.getPhone.isEmpty) {

@@ -38,12 +38,12 @@
 		<input type="hidden" name="locationName" id="locationName" />
         
         <fieldset>
-            <legend>Add need request</legend>
+            <legend>Add request for help</legend>
             
             @inputText(
                 needForm("name"), 
-                '_label -> "Title", 
-                '_help -> "Example: I need a TV.",
+                '_label -> "* I need ", 
+                '_help -> "Example: TV",
                 '_error -> needForm.globalError
             )
             
@@ -55,29 +55,29 @@
             )
             
             <div id="searchTextField_field" class="clearfix ">
-            <label for="searchTextField">Location</label>
+            <label for="searchTextField">My location</label>
 				<div class="input">
             		<input id="searchTextField" type="text" form="needForm" ></input>
             	</div>
             </div>
-			 <div id="map_canvas"></div>    
+			 <div id="map_canvas"></div>
  
 			@inputText(
                 needForm("endDate"),
-                '_label -> "Date",
-                '_help -> " please give a date in the future",
+                '_label -> "* Last day active",
+                '_help -> "Please give a date in the future.",
                 'id -> "datepicker",
                 '_error -> needForm.globalError
             )
             
             @inputText(
-                needForm("email"), '_label -> "Email",
+                needForm("email"), '_label -> "* Email address",
                 '_help -> "Enter a valid email address."
             )
             
               @inputText(
                 needForm("phone"), 
-                '_label -> "Phone", 
+                '_label -> "Phone number", 
                 '_error -> needForm.globalError
             )
             
@@ -94,7 +94,7 @@
         </fieldset>
         
         <div class="actions">
-            <input type="submit" class="btn primary" value="I need help">
+            <input type="submit" class="btn primary" value="Save my request">
             <a href="@routes.Application.index" class="btn">Cancel</a>
         </div>
         
