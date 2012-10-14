@@ -73,7 +73,7 @@
                             	It is for free.<br/>
                             }
                             Contact me at: <a href="mailto:@give.getEmail?Subject=RE: @give.getName">@give.getEmail</a>
-                            @if(give.getPhone != null) {
+                            @if(give.getPhone != null && !give.getPhone.isEmpty) {
                                  or phone me: @give.getPhone
                             }
                          	<br/>
@@ -81,7 +81,7 @@
                             	Location: @give.getLocationName
                             }
                            	<br/>
-                            @if(give.getDescription != null) {
+                            @if(give.getDescription != null && !give.getDescription.isEmpty) {
                             	Additional info: @give.getDescription
                             }
                         </td>

@@ -21,11 +21,11 @@
                             	I am willing to pay.<br/>
                             }
                             Contact me at: <a href="mailto:@need.getEmail?Subject=RE: @need.getName">@need.getEmail</a>
-                            @if(need.getPhone != null) {
+                            @if(need.getPhone != null && !need.getPhone.isEmpty) {
                                  or phone me: @need.getPhone
                             }
                             .<br/>
-                            @if(need.getDescription != null) {
+                            @if(need.getDescription != null && !need.getDescription.isEmpty) {
                             	Additional info: @need.getDescription
                             }
                      </li>
@@ -44,11 +44,11 @@
                             	I am willing to pay.<br/>
                             }
                             Contact me at: <a href="mailto:@need.getEmail?Subject=RE: @need.getName">@need.getEmail</a>
-                            @if(need.getPhone != null) {
+                            @if(need.getPhone != null && !need.getPhone.isEmpty) {
                                  or phone me: @need.getPhone
                             }
                             .<br/>
-                            @if(need.getDescription != null) {
+                            @if(need.getDescription != null && !need.getDescription.isEmpty) {
                             	Additional info: @need.getDescription
                             }
                      </li>
