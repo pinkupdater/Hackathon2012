@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.joda.time.DateMidnight;
 
@@ -44,6 +45,9 @@ public class GiveItem {
 	private boolean showDetails = false;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<GiveGeoCell> geoCells;
+
+	@Transient
+	private String location;
 
 	public GiveItem() {
 	}
@@ -241,6 +245,22 @@ public class GiveItem {
 		this.geoCells = new ArrayList<GiveGeoCell>();
 		for (String geoString : geoCellsStrings) {
 			geoCells.add(new GiveGeoCell(geoString, this));
+		}
+	}
+
+	public void setLocation(String location) {
+		if (location != null && location.length() >= 2) {
+			String[] fields = location.substring(1, location.length() - 1)
+					.split(",\\s");
+			if (fields.length == 2) {
+				try {
+					Double latitude = Double.parseDouble(fields[0]);
+					Double longitude = Double.parseDouble(fields[1]);
+					setPosition(latitude, longitude);
+				} catch (NumberFormatException e) {
+					// silently ignore and do nothing.
+				}
+			}
 		}
 	}
 }

@@ -30,6 +30,8 @@
     <body>
        @helper.form(action = routes.GiveForm.submit) {
         
+        <input type="hidden" name="location" id="location" />
+        
         <fieldset>
             <legend>Add give request</legend>
             
@@ -47,11 +49,10 @@
                 '_error -> giveForm.globalError
             )
             
-            @inputText(
-                giveForm("location"), 
-                '_label -> "Location", 
-                '_error -> giveForm.globalError
-            )
+          <label for="searchTextField">Location</label>
+            <input id="searchTextField" type="text" form="myForm" ></input>
+            
+			 <div id="map_canvas"></div>    
             
             @inputText(
                 giveForm("endDate"),

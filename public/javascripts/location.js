@@ -22,6 +22,9 @@ function initialize() {
       marker.setVisible(false);
       input.className = '';
       var place = autocomplete.getPlace();
+      if (place.geometry.location) {
+    	  document.getElementById('location').value = place.geometry.location;
+      }
       if (!place.geometry) {
         // Inform the user that the place was not found and return.
         input.className = 'notfound';
@@ -33,7 +36,7 @@ function initialize() {
         map.fitBounds(place.geometry.viewport);
       } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(17);  // Why 17? Because it looks good.
+        map.setZoom(17); // Why 17? Because it looks good.
       }
       var image = new google.maps.MarkerImage(
           place.icon,
@@ -52,6 +55,8 @@ function initialize() {
           (place.address_components[2] && place.address_components[2].short_name || '')
         ].join(' ');
       }
+      
+      
 
       infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
       infowindow.open(map, marker);
@@ -70,4 +75,5 @@ function initialize() {
     setupClickListener('changetype-establishment', ['establishment']);
     setupClickListener('changetype-geocode', ['geocode']);
   }
+
   google.maps.event.addDomListener(window, 'load', initialize);

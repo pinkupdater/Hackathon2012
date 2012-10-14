@@ -33,6 +33,8 @@
     </head>
     <body>
        @helper.form(action = routes.NeedForm.submit, '_id -> "myForm") {
+            
+		<input type="hidden" name="location" id="location" />
         
         <fieldset>
             <legend>Add need request</legend>
@@ -52,7 +54,7 @@
             )
             
             <label for="searchTextField">Location</label>
-            <input id="searchTextField" type="text" form="myForm"></input>
+            <input id="searchTextField" type="text" form="myForm" ></input>
             
 			 <div id="map_canvas"></div>    
  
