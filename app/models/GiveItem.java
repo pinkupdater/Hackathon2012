@@ -15,13 +15,13 @@ import javax.persistence.OneToMany;
 
 import org.joda.time.DateMidnight;
 
-import play.data.format.Formats;
-import play.data.validation.Constraints.Required;
-
-import play.db.jpa.JPA;
-
 import com.beoui.geocell.GeocellManager;
 import com.beoui.geocell.model.Point;
+
+import play.data.format.Formats;
+import play.data.validation.Constraints.Required;
+import play.db.jpa.JPA;
+import models.GeoCellUtil;
 
 @Entity
 public class GiveItem {
